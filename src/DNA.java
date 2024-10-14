@@ -18,6 +18,7 @@ public class DNA {
      */
     public static int STRCount(String sequence, String STR) {
         int StrCount = 0;
+        
         return StrCount;
     }
 
