@@ -47,4 +47,14 @@ public class DNA {
         }
         return StrCount;
     }
+
+    public void StrtoInt(String STR, int length){
+        //Integer pasre int == 0(n)
+        //
+        int intSTR = 0;
+        
+        for (int i =0; i < length; i++){
+            intSTR += (int) STR.charAt(i);
+        }
+    }
 }
