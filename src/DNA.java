@@ -28,29 +28,30 @@ public class DNA {
         }
         patHash = hash(STR, patLen);
         int start = 0;
+        int startSTR = 0;
         int locationChange;
-        boolean repeat = false;
         while (start < sequence.length()){
             locationChange = search(sequence, start);
-            if (locationChange == 1 && repeat){
+            if (locationChange == startSTR + patLen){
                 curStrCount++;
+                if (curStrCount > StrCount){
+                    StrCount = curStrCount;
+                }
+                startSTR = locationChange;
                 start += locationChange;
-            }
-            else if (locationChange != -1 && repeat){
-                StrCount = curStrCount;
-                curStrCount = 0;
-                start += locationChange;
-                repeat = false;
             }
             else if (locationChange != -1){
                 curStrCount++;
+                if (StrCount < 1){
+                    StrCount = curStrCount;
+                    curStrCount = 0;
+                }
+                startSTR = locationChange;
                 start += locationChange;
-                repeat = true;
             }
             else{
-                StrCount = curStrCount;
-                curStrCount = 0;
-                start++;
+                start+=1;
+                System.out.println("NO Match");
             }
 
         }
