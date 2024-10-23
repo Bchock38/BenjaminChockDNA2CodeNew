@@ -23,6 +23,7 @@ public class DNA {
         int StrCount = 0;
         int curStrCount = 0;
         patLen = STR.length();
+        //compute R^(patlen-1) %p for removeing leading digit
         for (int i = 1; i <= patLen-1; i++){
             RM = (radix * RM) % p;
         }
@@ -38,19 +39,20 @@ public class DNA {
                     StrCount = curStrCount;
                 }
                 startSTR = locationChange;
-                start += locationChange;
+                start = locationChange;
             }
             else if (locationChange != -1){
                 curStrCount++;
                 if (StrCount < 1){
                     StrCount = curStrCount;
-                    curStrCount = 0;
                 }
+                curStrCount = 0;
                 startSTR = locationChange;
-                start += locationChange;
+                start = locationChange;
             }
             else{
                 start+=1;
+                curStrCount = 0; // reset count
                 System.out.println("NO Match");
             }
 
@@ -58,6 +60,7 @@ public class DNA {
         return StrCount;
     }
 
+    //compute hash for STR
     private static long hash(String STR, int patLen){
         long StrHash = 0;
         for (int i = 0; i < patLen; i++){
@@ -67,7 +70,7 @@ public class DNA {
         return StrHash;
     }
 
-
+    //Check (doesn't actually do anything)
     public static boolean check(int i){
         return true;
     }
@@ -75,18 +78,23 @@ public class DNA {
     private static int search(String text, int start){
         int textLen = text.length();
         long textHash = hash(text.substring(start), patLen);
+        //if match return index of match
         if (patHash == textHash && check(0)){
-            return 1;
+            return start+patLen;
         }
+        //search for match in text
         for (int i = start+patLen; i < textLen; i++){
+           //remove leading digit and check for match
             textHash = (textHash + p - RM*text.charAt(i-patLen) % p) % p;
             textHash = (textHash * radix + text.charAt(i)) % p;
             if (patHash == textHash){
                 if (check(i-patLen+1)){
+                    //return index of match
                     return i-patLen+1;
                 }
             }
         }
+        //if no match return -1
         return -1;
     }
 
