@@ -20,6 +20,7 @@ public class DNA {
      * TODO: Complete this function, STRCount(), to return longest consecutive run of STR in sequence.
      */
     public static int STRCount(String sequence, String STR) {
+        RM = 1;
         int StrCount = 0;
         int curStrCount = 0;
         patLen = STR.length();
@@ -31,7 +32,7 @@ public class DNA {
         int start = 0;
         int startSTR = 0;
         int locationChange;
-        while (start < sequence.length()){
+        while (start+patLen < sequence.length()){
             locationChange = search(sequence, start);
             if (locationChange == startSTR + patLen){
                 curStrCount++;
@@ -53,7 +54,6 @@ public class DNA {
             else{
                 start+=1;
                 curStrCount = 0; // reset count
-                System.out.println("NO Match");
             }
 
         }

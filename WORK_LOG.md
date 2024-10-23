@@ -12,6 +12,7 @@ Name: YOUR NAME HERE
 | October 21 |    2-3     |                                                 Finished rabin karp algorithm, but don't know how to interate through the sequence with formula to get pairs in a row |
 | October 22 |  10-10:40  |                                       Fixed program so that it can interrate through the sequence correctly, but it struggles to tell if a STR is next to another one |
 | October 22 |  11-11:40  |                                                                       Kept trying to figure out how to heck neighbors now my code sometimes can't even find the match |
+| October 23 | 8:25-8:30  |                                                                                                 Code now passes all but largest and chromosone, but it takes too long |
 |            |            |                                                                                                                                                                       |
 
 
