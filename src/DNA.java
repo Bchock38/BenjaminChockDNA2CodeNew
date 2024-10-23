@@ -28,32 +28,36 @@ public class DNA {
         for (int i = 1; i <= patLen-1; i++){
             RM = (radix * RM) % p;
         }
-        patHash = hash(STR, patLen);
+        patHash = hash(STR,0 ,patLen);
         int start = 0;
         int startSTR = 0;
         int locationChange;
+        //check for very first match
+        locationChange = search(sequence, start);
+        startSTR = locationChange;
+        start = locationChange;
+        curStrCount++;
         while (start+patLen < sequence.length()){
             locationChange = search(sequence, start);
+            //if matches are neighbors increase count
             if (locationChange == startSTR + patLen){
-                curStrCount++;
                 if (curStrCount > StrCount){
                     StrCount = curStrCount;
                 }
-                startSTR = locationChange;
-                start = locationChange;
-            }
-            else if (locationChange != -1){
                 curStrCount++;
-                if (StrCount < 1){
-                    StrCount = curStrCount;
-                }
-                curStrCount = 0;
                 startSTR = locationChange;
                 start = locationChange;
             }
+            //if match is first match/not neighbor reset count add 1
+            else if (locationChange != -1){
+                curStrCount = 0;
+                curStrCount++;
+                startSTR = locationChange;
+                start = locationChange;
+            }
+            //no match return Str Count
             else{
-                start+=1;
-                curStrCount = 0; // reset count
+                return StrCount;
             }
 
         }
@@ -61,9 +65,9 @@ public class DNA {
     }
 
     //compute hash for STR
-    private static long hash(String STR, int patLen){
+    private static long hash(String STR, int start ,int patLen){
         long StrHash = 0;
-        for (int i = 0; i < patLen; i++){
+        for (int i = start; i < start+patLen; i++){
             StrHash = (radix * StrHash + STR.charAt(i)) % p;
         }
 
@@ -77,7 +81,7 @@ public class DNA {
 
     private static int search(String text, int start){
         int textLen = text.length();
-        long textHash = hash(text.substring(start), patLen);
+        long textHash = hash(text, start, patLen);
         //if match return index of match
         if (patHash == textHash && check(0)){
             return start+patLen;
