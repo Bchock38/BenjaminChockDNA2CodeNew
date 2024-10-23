@@ -52,6 +52,7 @@ public class DNA {
                 curStrCount = 0;
                 start++;
             }
+
         }
         return StrCount;
     }
